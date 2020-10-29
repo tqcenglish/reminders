@@ -58,47 +58,44 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: Expanded(
-        child: Container(
-          color: Colors.grey[300],
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Search(),
-              Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          MenuCard(widget.menuItems[0], this._handleTap),
-                          MenuCard(widget.menuItems[1], this._handleTap),
-                        ]),
-                    Row(
+      body: Container(
+        color: Colors.grey[300],
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Search(),
+            Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        MenuCard(widget.menuItems[2], this._handleTap),
-                        MenuCard(widget.menuItems[3], this._handleTap),
-                      ],
-                    ),
-                  ]),
-              Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: EdgeInsets.only(left: 15),
-                    child: Text(
-                      '我的列表',
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                    ),
+                        MenuCard(widget.menuItems[0], this._handleTap),
+                        MenuCard(widget.menuItems[1], this._handleTap),
+                      ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      MenuCard(widget.menuItems[2], this._handleTap),
+                      MenuCard(widget.menuItems[3], this._handleTap),
+                    ],
                   ),
-                ],
-              ),
-              MenuList(),
-            ],
-          ),
+                ]),
+            Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 15),
+                  child: Text(
+                    '我的列表',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
+            ),
+            Expanded(child: MenuList())
+          ],
         ),
       ),
     );

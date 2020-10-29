@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import '../route.dart';
+
 class MenuList extends StatelessWidget {
   const MenuList({Key key}) : super(key: key);
 
@@ -20,6 +22,10 @@ class MenuList extends StatelessWidget {
               ListTile(
                 title:
                     Text('今日计划', style: TextStyle(fontWeight: FontWeight.w500)),
+                    onTap:(){
+                      Navigator.of(context)
+                              .pushNamed(Pages.Detail.toString());
+                    },
                 trailing: Icon(Icons.arrow_right),
                 leading: Container(
                     width: 30,

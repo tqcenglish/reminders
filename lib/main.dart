@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:reminders/home.dart';
+import 'package:reminders/page/home.dart';
+import 'package:reminders/route.dart';
 
 void main() {
   runApp(MyApp());
@@ -11,7 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Reminders',
-      home: MyHomePage(title: 'Home'),
+      home: HomePage(title: 'Home'),
+      routes: mainRoutes,
     );
   }
 }

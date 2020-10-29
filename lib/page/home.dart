@@ -4,8 +4,9 @@ import 'package:reminders/widget/menu_card.dart';
 import 'package:reminders/widget/menu_list.dart';
 import 'package:reminders/widget/search.dart';
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+// ignore: must_be_immutable
+class HomePage extends StatefulWidget {
+  HomePage({Key key, this.title}) : super(key: key);
   final String title;
   var menuItems = [
     MenuItem(
@@ -38,10 +39,10 @@ class MyHomePage extends StatefulWidget {
   ];
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _HomePageState extends State<HomePage> {
   void _handleTap(MenuItem menuItem) {
     setState(() {
       for (var item in widget.menuItems) {

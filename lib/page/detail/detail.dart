@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reminders/widget/menu_list.dart';
+import 'package:reminders/page/detail/detail_list.dart';
 
 class Detail extends StatefulWidget {
   @override
@@ -27,7 +27,7 @@ class _DetailState extends State<Detail> {
               )
             ],
           ),
-          Expanded(child: MenuList())
+          Expanded(child: DetailList())
         ],
       )),
     );

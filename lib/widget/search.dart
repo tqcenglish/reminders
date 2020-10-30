@@ -16,7 +16,7 @@ class Search extends StatelessWidget {
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              labelText: "Search",
+              // labelText: "Search",
               hintText: "Search",
               prefixIcon: Icon(Icons.search),
               isDense: true,

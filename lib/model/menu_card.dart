@@ -1,13 +1,13 @@
 import 'package:flutter/widgets.dart';
 
-class MenuItem {
+class ModelMenuCard {
   bool selected;
   String iconPath;
   String name;
   int count;
   Color activeColor;
 
-  MenuItem(
+  ModelMenuCard(
       {bool selected,
       String iconPath,
       String name,

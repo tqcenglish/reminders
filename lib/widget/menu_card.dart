@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:reminders/model/menu.dart';
+import 'package:reminders/model/menu_card.dart';
 
-typedef void StringCallback(MenuItem val);
+typedef void StringCallback(ModelMenuCard val);
 
 class MenuCard extends StatelessWidget {
   MenuCard(this._item, this.callback);
-  final MenuItem _item;
+  final ModelMenuCard _item;
   final StringCallback callback;
 
   @override

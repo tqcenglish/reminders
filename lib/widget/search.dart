@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reminders/utils/color.dart';
 
 class Search extends StatelessWidget {
   const Search({Key key}) : super(key: key);
@@ -14,14 +15,23 @@ class Search extends StatelessWidget {
         child: TextField(
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.transparent),
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                borderSide: BorderSide(color: Colors.transparent),
+              ),
               filled: true,
-              fillColor: Colors.white,
-              // labelText: "Search",
+              fillColor: customColor('0xe3e3e9'),
               hintText: "Search",
-              prefixIcon: Icon(Icons.search),
+              prefixIcon: Icon(
+                Icons.search,
+                color: Colors.grey,
+                size: 25,
+              ),
               isDense: true,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0))),
               contentPadding: EdgeInsets.all(5)),
         ),
       ),

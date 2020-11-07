@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:reminders/model/task.dart';
+import 'package:reminders/api/common.dart';
+import 'package:reminders/model/song.dart';
 
+typedef void StringCallback(String val);
 class DetailListItem extends StatelessWidget {
-  DetailListItem(this._task);
+  DetailListItem(this._task, this.callback);
 
-  final Task _task;
+  final SongModel _task;
+  final StringCallback callback;
+
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -14,9 +19,12 @@ class DetailListItem extends StatelessWidget {
         elevation: 2,
         child: ListTile(
           leading: Icon(Icons.flag),
-          title: Text(_task.name),
+          title: Text(_task.singername),
           trailing: Icon(Icons.more_vert),
-          onTap: () {},
+          onTap: () {
+            //播放
+            this.callback(url);
+          },
         ));
   }
 }

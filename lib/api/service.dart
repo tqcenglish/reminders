@@ -1,11 +1,12 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:reminders/api/array.dart';
+import 'package:reminders/api/common.dart';
 import 'package:reminders/api/search.dart';
-import 'package:reminders/model/task.dart';
 
 Dio dio = Dio();
 
@@ -31,37 +32,28 @@ void initDio(String baseUrl, String token) {
   dio.options = options;
 }
 
-mockTasks() {
-  return [
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-  ];
-}
-
-// 设备列表
-Future<TaskResult> searchTasks() async {
-  var res = await dio.request(
-    "/plugin-coopaging/device?limit=1000&page=1",
+// 获取列表
+Future<SongGroupModelResult> searchGroups() async {
+  var res = await dio.request(kugoListInfoUrl,
     options: Options(method: "GET"),
   );
-  return await compute(TaskResult.fromJson, res.data as Map<String, dynamic>);
+  // print(res);
+  var data = String.fromCharCodes(new Runes(res.data)); 
+  return await compute(SongGroupModelResult.fromJson, jsonDecode(data) as Map<String, dynamic>);
+}
+
+// 获取列表
+Future<SongModelResult> searchSongs() async {
+  var res = await dio.request(kuogoList,
+    options: Options(method: "GET"),
+  );
+  // print(res);
+  var data = String.fromCharCodes(new Runes(res.data)); 
+  RegExp reg = new RegExp(r"global\.data = (\[.+\]);");
+  Iterable<Match> matches = reg.allMatches(data);
+  for (Match m in matches) {
+    data = m.group(1);  
+  }
+  print(data);
+  return await compute(SongModelResult.fromJson, jsonDecode(data) as List<dynamic>);
 }

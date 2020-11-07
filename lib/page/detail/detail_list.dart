@@ -1,8 +1,14 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:reminders/api/service.dart';
-import 'package:reminders/model/task.dart';
+import 'package:reminders/model/song.dart';
 import 'package:reminders/page/detail/detail_item.dart';
 import 'package:reminders/widget/indicator.dart';
+
+import 'package:path_provider/path_provider.dart';
+import 'package:reminders/widget/player_widget.dart';
 
 class DetailList extends StatefulWidget {
   @override
@@ -12,7 +18,8 @@ class DetailList extends StatefulWidget {
 class _DetailListState extends State<DetailList> {
   bool _showChild = false;
 
-  List<Task> _tasks = new List();
+  List<SongModel> _tasks = new List();
+  String localFilePath;
 
   @override
   void initState() {
@@ -25,18 +32,32 @@ class _DetailListState extends State<DetailList> {
     super.didChangeDependencies();
   }
 
+    Future _loadFile(String url) async {
+    final bytes = await readBytes(url);
+    final dir = await getApplicationDocumentsDirectory();
+    final file = File('${dir.path}/audio.mp3');
+
+    await file.writeAsBytes(bytes);
+    if (await file.exists()) {
+      setState(() {
+        localFilePath = file.path;
+      });
+    }
+  }
+  
+
   Future<void> _loadMoreData() async {
-    // var data = await mockTasks();
+    var data = await searchSongs();
     if (mounted) {
       setState(() {
-        _tasks = mockTasks();
+        _tasks = data.items;
         _showChild = true;
       });
     }
   }
 
   Widget _createItem(BuildContext context, int index) {
-    return DetailListItem(_tasks[index]);
+    return DetailListItem(_tasks[index], this._loadFile);
   }
 
   @override
@@ -66,7 +87,12 @@ class _DetailListState extends State<DetailList> {
                       itemCount: _tasks.length, itemBuilder: _createItem)),
               onRefresh: _loadMoreData,
             ),
-          )
+          ),
+          localFilePath == null
+          ? Container()
+          : PlayerWidget(
+              url: localFilePath,
+            ),
         ],
       ),
       crossFadeState: _tasks.length == 0

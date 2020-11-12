@@ -2,13 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:reminders/api/service.dart';
 import 'package:reminders/model/song.dart';
 import 'package:reminders/page/detail/detail_item.dart';
 import 'package:reminders/widget/indicator.dart';
 
 import 'package:path_provider/path_provider.dart';
-import 'package:reminders/widget/player_widget.dart';
 
 class DetailList extends StatefulWidget {
   @override
@@ -17,7 +17,7 @@ class DetailList extends StatefulWidget {
 
 class _DetailListState extends State<DetailList> {
   bool _showChild = false;
-
+  final player = AudioPlayer();
   List<SongModel> _tasks = new List();
   String localFilePath;
 
@@ -32,7 +32,7 @@ class _DetailListState extends State<DetailList> {
     super.didChangeDependencies();
   }
 
-    Future _loadFile(String url) async {
+  Future _loadFile(String url) async {
     final bytes = await readBytes(url);
     final dir = await getApplicationDocumentsDirectory();
     final file = File('${dir.path}/audio.mp3');
@@ -44,7 +44,6 @@ class _DetailListState extends State<DetailList> {
       });
     }
   }
-  
 
   Future<void> _loadMoreData() async {
     var data = await searchSongs();
@@ -88,11 +87,11 @@ class _DetailListState extends State<DetailList> {
               onRefresh: _loadMoreData,
             ),
           ),
-          localFilePath == null
-          ? Container()
-          : PlayerWidget(
-              url: localFilePath,
-            ),
+          // localFilePath == null
+          //     ? Container()
+          //     : PlayerWidget(
+          //         url: localFilePath,
+          //       ),
         ],
       ),
       crossFadeState: _tasks.length == 0

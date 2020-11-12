@@ -34,26 +34,32 @@ void initDio(String baseUrl, String token) {
 
 // 获取列表
 Future<SongGroupModelResult> searchGroups() async {
-  var res = await dio.request(kugoListInfoUrl,
+  print('searchGroups');
+  var res = await dio.request(
+    kugoListInfoUrl,
     options: Options(method: "GET"),
   );
-  // print(res);
-  var data = String.fromCharCodes(new Runes(res.data)); 
-  return await compute(SongGroupModelResult.fromJson, jsonDecode(data) as Map<String, dynamic>);
+  print(res);
+  var data = String.fromCharCodes(new Runes(res.data));
+  return await compute(
+      SongGroupModelResult.fromJson, jsonDecode(data) as Map<String, dynamic>);
 }
 
 // 获取列表
 Future<SongModelResult> searchSongs() async {
-  var res = await dio.request(kuogoList,
+  print('searchSongs');
+  var res = await dio.request(
+    kuogoList,
     options: Options(method: "GET"),
   );
-  // print(res);
-  var data = String.fromCharCodes(new Runes(res.data)); 
+  print(res);
+  var data = String.fromCharCodes(new Runes(res.data));
   RegExp reg = new RegExp(r"global\.data = (\[.+\]);");
   Iterable<Match> matches = reg.allMatches(data);
   for (Match m in matches) {
-    data = m.group(1);  
+    data = m.group(1);
   }
   print(data);
-  return await compute(SongModelResult.fromJson, jsonDecode(data) as List<dynamic>);
+  return await compute(
+      SongModelResult.fromJson, jsonDecode(data) as List<dynamic>);
 }

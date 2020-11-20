@@ -51,13 +51,13 @@ class MenuCard extends StatelessWidget {
                                   image: AssetImage(_item.iconPath),
                                 )),
                           ),
-                          Text(_item.count.toString(),
-                              style: TextStyle(
-                                  color: _item.selected
-                                      ? Colors.white
-                                      : Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
+                          // Text(_item.count.toString(),
+                          //     style: TextStyle(
+                          //         color: _item.selected
+                          //             ? Colors.white
+                          //             : Colors.black,
+                          //         fontSize: 20,
+                          //         fontWeight: FontWeight.bold)),
                         ],
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       ),

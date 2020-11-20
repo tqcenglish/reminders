@@ -2,56 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:reminders/model/menu_card.dart';
 import 'package:reminders/model/menu_item.dart';
 import 'package:reminders/utils/color.dart';
-import 'package:reminders/widget/menu_action.dart';
 import 'package:reminders/widget/menu_card.dart';
 import 'package:reminders/widget/menu_list.dart';
 import 'package:reminders/widget/search.dart';
+
+import '../route.dart';
 
 // ignore: must_be_immutable
 class HomePage extends StatefulWidget {
   HomePage({Key key, this.title}) : super(key: key);
   final String title;
   var menuItems = [
-    ModelMenuItem(
-      name: "今日计划1",
-      color: Colors.red
-      ),
-       ModelMenuItem(
-      name: "今日计划2",
-      color: Colors.red
-      ),
-       ModelMenuItem(
-      name: "今日计划3",
-      color: Colors.red
-      ),
-       ModelMenuItem(
-      name: "今日计划",
-      color: Colors.red
-      ),
+    ModelMenuItem(name: "千千阙歌", color: Colors.red),
   ];
   var menuCards = [
     ModelMenuCard(
-      name: 'Today',
+      name: '飙升',
       iconPath: 'today.png',
       count: 2,
       selected: true,
       activeColor: Colors.blue[700],
     ),
     ModelMenuCard(
-      name: 'Scheduled',
+      name: '新歌',
       iconPath: 'schedule.png',
       count: 1,
       selected: false,
       activeColor: Colors.orange,
     ),
     ModelMenuCard(
-        name: 'All',
+        name: '热歌',
         iconPath: 'all.png',
         count: 14,
         selected: false,
         activeColor: Colors.grey[700]),
     ModelMenuCard(
-      name: 'Flagged',
+      name: '热评',
       iconPath: 'flag.png',
       count: 4,
       selected: false,
@@ -74,12 +60,13 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
+
+    Navigator.of(context).pushNamed(Pages.Detail.toString());
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: Container(
         color: customColor('0xf2f2f7'),
         child: Column(
@@ -109,7 +96,7 @@ class _HomePageState extends State<HomePage> {
                 Container(
                   padding: EdgeInsets.only(left: 25, top: 20),
                   child: Text(
-                    'My Lists',
+                    '收藏',
                     style: TextStyle(fontSize: 23, fontWeight: FontWeight.w800),
                   ),
                 ),
@@ -119,10 +106,8 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: MenuAction()
-      ),
+      // bottomNavigationBar:
+      //     BottomAppBar(shape: CircularNotchedRectangle(), child: MenuAction()),
     );
   }
 }

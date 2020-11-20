@@ -1,20 +1,21 @@
-import 'package:reminders/model/task.dart';
+import 'package:reminders/model/song.dart';
 
 typedef JSONConverter<S, T> = T Function(S input);
 
 // 设备信息返回
 abstract class SearchResult<T> {
-  int totalCount;
-  bool incompleteResults;
+  String name;
+  String pic;
+  int num;
+  String type;
   List<T> items;
 }
 
 SearchResult<T> _fromJson<T>(SearchResult<T> result, Map<String, dynamic> input,
     JSONConverter<Map<String, dynamic>, T> converter) {
-  result.totalCount = input["count"];
-  result.incompleteResults = true;
+  result.name = input["name"];
 
-  var items = input['rows'] as List;
+  var items = input['musiclist'] as List;
   if (items != null) {
     items.forEach((it) {
       var json = it as Map<String, dynamic>;
@@ -25,10 +26,10 @@ SearchResult<T> _fromJson<T>(SearchResult<T> result, Map<String, dynamic> input,
   return result;
 }
 
-class TaskResult extends SearchResult<Task> {
-  static TaskResult fromJson(Map<String, dynamic> input) {
-    SearchResult result = TaskResult();
-    result.items = List<Task>();
-    return _fromJson(result, input, Task.fromJson);
+class SongResult extends SearchResult<Song> {
+  static SongResult fromJson(Map<String, dynamic> input) {
+    SearchResult result = SongResult();
+    result.items = List<Song>();
+    return _fromJson(result, input, Song.fromJson);
   }
 }

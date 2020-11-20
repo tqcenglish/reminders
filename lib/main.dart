@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Reminders',
+      title: 'Songs',
       home: HomePage(title: 'Home'),
       routes: mainRoutes,
     );

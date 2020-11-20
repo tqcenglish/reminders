@@ -12,7 +12,7 @@ class _DetailState extends State<Detail> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("列表"),
+        title: Text("歌曲"),
       ),
       body: Container(
           child: Column(
@@ -21,7 +21,7 @@ class _DetailState extends State<Detail> {
             children: [
               Container(
                 padding: EdgeInsets.only(left: 20, top: 15, bottom: 0),
-                child: Text("阅读",
+                child: Text("新歌榜",
                     style:
                         TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
               )

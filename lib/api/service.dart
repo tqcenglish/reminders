@@ -1,11 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:reminders/api/search.dart';
-import 'package:reminders/model/task.dart';
 
 Dio dio = Dio();
 
@@ -31,37 +30,28 @@ void initDio(String baseUrl, String token) {
   dio.options = options;
 }
 
-mockTasks() {
-  return [
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-    Task(
-      name: 'Today',
-      iconPath: 'today.png',
-      count: 2,
-      selected: true,
-      activeColor: Colors.blue[700],
-    ),
-  ];
-}
-
-// 设备列表
-Future<TaskResult> searchTasks() async {
+// 歌曲列表
+// 93 17 16 15
+Future<SongResult> searchSongs(id) async {
   var res = await dio.request(
-    "/plugin-coopaging/device?limit=1000&page=1",
+    "http://kbangserver.kuwo.cn/ksong.s?from=pc&fmt=json&pn=0&rn=100&type=bang&data=content&id=$id&show_copyright_off=0&pcmp4=1&isbang=1",
     options: Options(method: "GET"),
   );
-  return await compute(TaskResult.fromJson, res.data as Map<String, dynamic>);
+  print(res.data);
+  return await compute(
+      SongResult.fromJson, jsonDecode(res.data) as Map<String, dynamic>);
+}
+
+// 获取歌曲连接
+Future<String> getSongUrl(id) async {
+  try {
+    Response res = await dio.request(
+      "http://tm.tempmusic.tk/url/kw/$id/128k",
+      options: Options(method: "GET"),
+    );
+    var data = jsonDecode(res.data) as Map<String, String>;
+    return data["data"];
+  } catch (e) {
+    return "";
+  }
 }

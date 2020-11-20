@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:just_audio/just_audio.dart';
 import 'package:reminders/api/service.dart';
-import 'package:reminders/model/task.dart';
+import 'package:reminders/model/song.dart';
 import 'package:reminders/page/detail/detail_item.dart';
 import 'package:reminders/widget/indicator.dart';
 
@@ -11,8 +12,8 @@ class DetailList extends StatefulWidget {
 
 class _DetailListState extends State<DetailList> {
   bool _showChild = false;
-
-  List<Task> _tasks = new List();
+  final player = AudioPlayer();
+  List<Song> _songs = new List();
 
   @override
   void initState() {
@@ -26,34 +27,44 @@ class _DetailListState extends State<DetailList> {
   }
 
   Future<void> _loadMoreData() async {
-    // var data = await mockTasks();
+    var data = await searchSongs(16);
     if (mounted) {
       setState(() {
-        _tasks = mockTasks();
+        _songs = data.items;
         _showChild = true;
       });
     }
   }
 
+  void _handleTap(String id) async {
+    var url = await getSongUrl(id);
+    // var url =
+    // "http://ec.sycdn.kuwo.cn/fcfd92e6eaa674c3c7148b25f90829c8/5fb47eb3/resource/n1/62/45/178139152.mp3";
+    if (url != "") {
+      try {
+        print(url);
+        await player.setUrl(url);
+        player.play();
+      } catch (e) {
+        print("Error: $e");
+      }
+    } else {
+      final snackBar = SnackBar(content: Text('404 Not Found'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   Widget _createItem(BuildContext context, int index) {
-    return DetailListItem(_tasks[index]);
+    return DetailListItem(_songs[index], _handleTap);
   }
 
   @override
   Widget build(BuildContext context) {
-    // bus.on("update_dashboard", (arg) {
-    //   setState(() {
-    //     _showChild = false;
-    //   });
-    //   new Future.delayed(Duration(milliseconds: arg ?? 3000)).then((data) {
-    //     _loadMoreData();
-    //   });
-    // });
     return AnimatedCrossFade(
       duration: const Duration(milliseconds: 50),
       alignment: Alignment.center,
       firstChild: Center(
-        child: Text("没有任务"),
+        child: Text("加载中"),
       ),
       secondChild: Column(
         mainAxisSize: MainAxisSize.min,
@@ -63,13 +74,13 @@ class _DetailListState extends State<DetailList> {
               child: IndicatorContainer(
                   showChild: _showChild,
                   child: ListView.builder(
-                      itemCount: _tasks.length, itemBuilder: _createItem)),
+                      itemCount: _songs.length, itemBuilder: _createItem)),
               onRefresh: _loadMoreData,
             ),
           )
         ],
       ),
-      crossFadeState: _tasks.length == 0
+      crossFadeState: _songs.length == 0
           ? CrossFadeState.showFirst
           : CrossFadeState.showSecond,
     );

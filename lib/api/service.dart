@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/adapter.dart';
@@ -31,31 +30,35 @@ void initDio(String baseUrl, String token) {
 }
 
 // 歌曲列表
-// 93 17 16 15
 Future<SongResult> searchSongs(id) async {
-  String url = "http://kbangserver.kuwo.cn/ksong.s?from=pc&fmt=json&pn=0&rn=100&type=bang&data=content&id=$id&show_copyright_off=0&pcmp4=1&isbang=1";
+  String url = "http://localhost:3000/playlist/detail?id=$id";
   print("get $url");
-  var res = await dio.request(
-    url,
-    options: Options(method: "GET"),
-  );
-  // print(res.data);
+
+  try {
+    var res = await dio.request(
+      url,
+      options: Options(method: "GET"),
+    );
 
   return await compute(
-      SongResult.fromJson, jsonDecode(res.data) as Map<String, dynamic>);
+      SongResult.fromJson,  res.data as Map<String, dynamic>);
+  } catch (e) {
+    print(e.message);
+  }
+  return null;
 }
 
 // 获取歌曲连接
 Future<String> getSongUrl(id) async {
-  String url = "http://tm.tempmusic.tk/url/kw/$id/128k";
+  String url = "http://localhost:3000/song/url?id=$id";
   print('get $url');
   try {
     Response res = await dio.request(
       url,
       options: Options(method: "GET"),
     );
-    var data = jsonDecode(res.data) as Map<String, String>;
-    return data["data"];
+    var data =res.data as Map<String, dynamic>;
+    return data["data"][0]["url"];
   } catch (e) {
     print(e.message);
     return "";

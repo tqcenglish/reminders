@@ -1,10 +1,10 @@
 class Song {
   String name;
-  String id;
+  int id;
 
   Song({
     String name,
-    String id,
+    int id,
   }) {
     this.name = name;
     this.id = id;

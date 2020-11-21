@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:reminders/model/song.dart';
 
-typedef void StringCallback(String val);
+typedef void IntCallback(int val);
 
 class DetailListItem extends StatelessWidget {
   DetailListItem(this._task, this.callback);
 
-  final StringCallback callback;
+  final IntCallback callback;
   final Song _task;
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class DetailListItem extends StatelessWidget {
         ),
         elevation: 2,
         child: ListTile(
-          leading: Icon(Icons.flag),
+          leading: Icon(Icons.play_arrow),
           title: Text(_task.name),
           trailing: Icon(Icons.more_vert),
           onTap: () {

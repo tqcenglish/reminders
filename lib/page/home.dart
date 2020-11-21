@@ -15,35 +15,39 @@ class HomePage extends StatefulWidget {
   var menuItems = [
     ModelMenuItem(name: "千千阙歌", color: Colors.red),
   ];
+
+  //http://localhost:3000/playlist/hot
+  //http://localhost:3000/playlist/detail?id=5001
+  //http://localhost:3000/song/url?id=108418
   var menuCards = [
     ModelMenuCard(
-      name: '飙升',
+      name: '华语',
       iconPath: 'today.png',
       count: 2,
-      id: 93,
+      id: 5001,
       selected: true,
       activeColor: Colors.blue[700],
     ),
     ModelMenuCard(
-      name: '新歌',
+      name: '流行',
       iconPath: 'schedule.png',
       count: 1,
-      id: 17,
+      id: 1,
       selected: false,
       activeColor: Colors.orange,
     ),
     ModelMenuCard(
-        name: '热歌',
+        name: '摇滚',
         iconPath: 'all.png',
-        count: 14,
-        id: 16,
+        count: 114741,
+        id: 2,
         selected: false,
         activeColor: Colors.grey[700]),
     ModelMenuCard(
-      name: '热评',
+      name: '民谣',
       iconPath: 'flag.png',
-      count: 4,
-        id: 15,
+      count: 1001,
+        id: 354550,
       selected: false,
       activeColor: Colors.red,
     ),

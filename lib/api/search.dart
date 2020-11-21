@@ -4,20 +4,16 @@ typedef JSONConverter<S, T> = T Function(S input);
 
 // 设备信息返回
 abstract class SearchResult<T> {
-  String name;
-  String pic;
-  int num;
-  String type;
+  int code;
   List<T> items;
 }
 
 SearchResult<T> _fromJson<T>(SearchResult<T> result, Map<String, dynamic> input,
     JSONConverter<Map<String, dynamic>, T> converter) {
-  result.name = input["name"];
-
-  var items = input['musiclist'] as List;
-  if (items != null) {
-    items.forEach((it) {
+  result.code = input["code"];
+  var tracks = input['playlist']['tracks'] as List;
+  if (tracks != null) {
+    tracks.forEach((it) {
       var json = it as Map<String, dynamic>;
       result.items.add(converter(json));
     });

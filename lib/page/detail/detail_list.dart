@@ -31,7 +31,7 @@ class _DetailListState extends State<DetailList> {
 
   Future<void> _loadMoreData() async {
     var data = await searchSongs(widget.id);
-    if (mounted) {
+    if (mounted && data != null) {
       setState(() {
         _songs = data.items;
         _showChild = true;
@@ -39,7 +39,7 @@ class _DetailListState extends State<DetailList> {
     }
   }
 
-  void _handleTap(String id) async {
+  void _handleTap(int id) async {
     var url = await getSongUrl(id);
     // var url =
     // "http://ec.sycdn.kuwo.cn/fcfd92e6eaa674c3c7148b25f90829c8/5fb47eb3/resource/n1/62/45/178139152.mp3";

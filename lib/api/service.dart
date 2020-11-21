@@ -33,25 +33,31 @@ void initDio(String baseUrl, String token) {
 // 歌曲列表
 // 93 17 16 15
 Future<SongResult> searchSongs(id) async {
+  String url = "http://kbangserver.kuwo.cn/ksong.s?from=pc&fmt=json&pn=0&rn=100&type=bang&data=content&id=$id&show_copyright_off=0&pcmp4=1&isbang=1";
+  print("get $url");
   var res = await dio.request(
-    "http://kbangserver.kuwo.cn/ksong.s?from=pc&fmt=json&pn=0&rn=100&type=bang&data=content&id=$id&show_copyright_off=0&pcmp4=1&isbang=1",
+    url,
     options: Options(method: "GET"),
   );
-  print(res.data);
+  // print(res.data);
+
   return await compute(
       SongResult.fromJson, jsonDecode(res.data) as Map<String, dynamic>);
 }
 
 // 获取歌曲连接
 Future<String> getSongUrl(id) async {
+  String url = "http://tm.tempmusic.tk/url/kw/$id/128k";
+  print('get $url');
   try {
     Response res = await dio.request(
-      "http://tm.tempmusic.tk/url/kw/$id/128k",
+      url,
       options: Options(method: "GET"),
     );
     var data = jsonDecode(res.data) as Map<String, String>;
     return data["data"];
   } catch (e) {
+    print(e.message);
     return "";
   }
 }

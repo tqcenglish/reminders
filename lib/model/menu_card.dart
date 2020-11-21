@@ -5,6 +5,7 @@ class ModelMenuCard {
   String iconPath;
   String name;
   int count;
+  int id;
   Color activeColor;
 
   ModelMenuCard(
@@ -12,11 +13,13 @@ class ModelMenuCard {
       String iconPath,
       String name,
       int count,
+      int id,
       Color activeColor}) {
     this.selected = selected;
     this.iconPath = iconPath;
     this.name = name;
     this.count = count;
+    this.id = id;
     this.activeColor = activeColor;
   }
 }

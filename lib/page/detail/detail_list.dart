@@ -6,8 +6,11 @@ import 'package:reminders/page/detail/detail_item.dart';
 import 'package:reminders/widget/indicator.dart';
 
 class DetailList extends StatefulWidget {
+   DetailList({Key key, this.id}) : super(key: key);
+
   @override
   _DetailListState createState() => _DetailListState();
+   final int  id;  
 }
 
 class _DetailListState extends State<DetailList> {
@@ -27,7 +30,7 @@ class _DetailListState extends State<DetailList> {
   }
 
   Future<void> _loadMoreData() async {
-    var data = await searchSongs(16);
+    var data = await searchSongs(widget.id);
     if (mounted) {
       setState(() {
         _songs = data.items;

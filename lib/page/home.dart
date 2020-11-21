@@ -20,6 +20,7 @@ class HomePage extends StatefulWidget {
       name: '飙升',
       iconPath: 'today.png',
       count: 2,
+      id: 93,
       selected: true,
       activeColor: Colors.blue[700],
     ),
@@ -27,6 +28,7 @@ class HomePage extends StatefulWidget {
       name: '新歌',
       iconPath: 'schedule.png',
       count: 1,
+      id: 17,
       selected: false,
       activeColor: Colors.orange,
     ),
@@ -34,12 +36,14 @@ class HomePage extends StatefulWidget {
         name: '热歌',
         iconPath: 'all.png',
         count: 14,
+        id: 16,
         selected: false,
         activeColor: Colors.grey[700]),
     ModelMenuCard(
       name: '热评',
       iconPath: 'flag.png',
       count: 4,
+        id: 15,
       selected: false,
       activeColor: Colors.red,
     ),
@@ -60,8 +64,8 @@ class _HomePageState extends State<HomePage> {
         }
       }
     });
-
-    Navigator.of(context).pushNamed(Pages.Detail.toString());
+    Navigator.of(context).pushNamed(Pages.Detail.toString(), arguments: menuItem);
+    // Navigator.of(context).pushNamed(Pages.Detail.toString());
   }
 
   @override

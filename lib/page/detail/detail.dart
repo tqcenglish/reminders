@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reminders/model/menu_card.dart';
 import 'package:reminders/page/detail/detail_list.dart';
 
 class Detail extends StatefulWidget {
@@ -10,6 +11,8 @@ class Detail extends StatefulWidget {
 class _DetailState extends State<Detail> {
   @override
   Widget build(BuildContext context) {
+    final ModelMenuCard _item = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("歌曲"),
@@ -27,7 +30,7 @@ class _DetailState extends State<Detail> {
               )
             ],
           ),
-          Expanded(child: DetailList())
+          Expanded(child: DetailList(id: _item.id))
         ],
       )),
     );

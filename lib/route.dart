@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:reminders/page/detail/detail.dart';
 import 'package:reminders/page/home.dart';
 
-import 'page/detail/detail.dart';
 
 enum Pages {
   Home,
